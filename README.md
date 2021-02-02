@@ -10,7 +10,7 @@ Com o objetivo de enviarmos sinal de transmissão dos sensores do ARDUÍNO para 
 
 ## Bibliotecas
 _UIPEthernet.h_
-
+_PubSubClient.h_
 _SPI.h_
 
 ### Link de referencia para biblioteca
