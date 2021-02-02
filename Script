@@ -1,0 +1,79 @@
+#include <PubSubClient.h>        //OS LINKS DE BIBLIOTECAS PARA FUNCIONAMENTO DE MECÂNICAS ESPECIFICAS 
+
+#include <UIPEthernet.h>
+
+#include <SPI.h> 
+
+byte mac[]={0xF8, 0x1A, 0x63, 0xAD, 0x6A, 0x17}; 
+bool mensagem;
+bool estado_sensor;
+
+EthernetClient client;
+PubSubClient mqttClient (client);
+
+
+int pino2 = 2; 
+
+void setup() {
+  pinMode(pino2,INPUT_PULLUP);        //CONFIGURAÇÕES DOS IMÃS E ACESSO A INTERNET PELO ARDUÍNO
+  Serial.begin(9600);
+mqttClient.setServer("3.82.94.158", 1883);
+
+estado_sensor = digitalRead(pino2);
+
+ Ethernet.begin(mac);               //PREPARAÇÃO DO SERVIÇO DE INTERNET NO ARDUÍNO
+ 
+Serial.print("O IP DO ARDUINO E ");
+  Serial.print(Ethernet.localIP());
+  Serial.println("!");
+ delay(2250);
+
+Serial.print("A MASK DO ARDUINO E " );
+  Serial.print(Ethernet.subnetMask());
+  Serial.println("!");
+ delay(2250);
+
+Serial.print("O GATEWAY DO ARDUINO E " ); 
+  Serial.print(Ethernet.gatewayIP());
+  Serial.println("!");
+ delay(2250);
+ 
+Ethernet.begin(mac);
+}
+
+void loop() {
+
+  mqttClient.connect("Danilo Mendes");        //SEQUENCIA DE CONTROLES PARA QUE SEJA ENVIADO A MENSAGEM DIRETAMENTE AO MQTT
+
+if (estado_sensor == 0){
+
+  mensagem = mqttClient.publish("DaniloSensor","Sensor Fechado");
+  delay(650);
+}
+
+else{
+  mensagem = mqttClient.publish("DaniloSensor","Sensor Aberto");
+    delay(650);
+
+}
+mqttClient.loop();
+
+
+delay(650);
+
+  estado_sensor = digitalRead(pino2);       //COMANDOS PARA A CONFIGURAÇÃO DO SENSOR E SUA FUNCIONALIDADE
+
+  Serial.print("O estado do sensor e: ");
+   if(estado_sensor == 0){
+   Serial.println("FECHADO");
+   delay(1750);
+}
+  
+  else {
+    Serial.println("ABERTO");
+    delay(1750);
+  }
+  
+
+
+}
