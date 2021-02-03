@@ -17,7 +17,7 @@ int pino2 = 2;
 void setup() {
   pinMode(pino2,INPUT_PULLUP);        //CONFIGURAÇÕES DOS IMÃS E ACESSO A INTERNET PELO ARDUÍNO
   Serial.begin(9600);
-mqttClient.setServer("3.82.94.158", 1883);
+mqttClient.setServer("54.144.190.205", 1883);
 
 estado_sensor = digitalRead(pino2);
 
