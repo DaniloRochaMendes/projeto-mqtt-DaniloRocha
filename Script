@@ -47,13 +47,13 @@ void loop() {
 
 if (estado_sensor == 0){
 
-  mensagem = mqttClient.publish("DaniloSensor","Sensor Fechado");
+  mensagem = mqttClient.publish("DaniloSensor","Fechado");
 Serial.println("FECHADO");
 
 }
 
 else{
-  mensagem = mqttClient.publish("DaniloSensor","Sensor Aberto");
+  mensagem = mqttClient.publish("DaniloSensor","Aberto");
     
 
 }
