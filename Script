@@ -48,6 +48,7 @@ void loop() {
 if (estado_sensor == 0){
 
   mensagem = mqttClient.publish("DaniloSensor","Sensor Fechado");
+Serial.println("FECHADO");
 
 }
 
@@ -62,7 +63,7 @@ else{
 
   Serial.print("O estado do sensor e: ");
    if(estado_sensor == 0){
-   Serial.println("FECHADO");
+
 
 }
   
